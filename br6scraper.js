@@ -31,7 +31,7 @@ const getMatchDates = async (url, path) => {
     const dates = [];
     const aux = ($(path, html).length);
     for (let i = 0; i < aux; i++) {
-      dates.push(moment($(path, html)[i].children[0].data.trim(), 'MMMM DD, YYYY'));
+      dates.push(moment($(path, html)[i].children[0].data.trim(), 'MMMM DD, YYYY').format('DD-MM-YYYY'));
     }
     return dates;
   }
@@ -61,8 +61,8 @@ const getScores = async (url, path1, path2) => {
     const scores = [];
     const aux = ($(path1, html).length);
     for (let i = 0; i < aux; i++) {
-      scores.push($(path1, html)[i].children[0].data.trim());
-      scores.push($(path2, html)[i].children[0].data.trim());
+      scores.push(parseInt($(path1, html)[i].children[0].data.trim()));
+      scores.push(parseInt($(path2, html)[i].children[0].data.trim()));
     }
     return scores;
   }
@@ -77,17 +77,17 @@ const getRounds = async () => {
   let scores = await getScores(url, pathToScores1, pathToScores2);
 
   // for (let i = 0; i < 1/*(dates.length / 2)*/; i++) {
-  //   var myJSON = {
-  //     "match": {
-  //       "date": dates[i],
-  //       "team": matches[i],
-  //       "score": scores[i],
-  //       "team": matches[i++],
-  //       "score": scores[i++],
-  //     }
-  //   }
+    var myJSON = {
+      "match": {
+        "date": dates[0],
+        "team": matches[0],
+        "score": scores[0],
+        "team1": matches[1],
+        "score1": scores[1],
+      }
+    }
   // }
-  // console.log(myJSON);
+  console.log(myJSON);
   // var myString = JSON.stringify(myJSON);
   // console.log(myString);
 
@@ -100,7 +100,7 @@ const main = async () => {
   // let matches = await getMatches(url, pathToMatches);
   // console.log(matches);
   // let scores = await getScores(url, pathToScores1, pathToScores2);
-  // getRounds();
+  getRounds();
   // parseDate();
 }
 
