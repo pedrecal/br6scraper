@@ -1,5 +1,6 @@
 const rp = require('request-promise');
 const $ = require('cheerio');
+const moment = require('moment');
 const url = 'https://liquipedia.net/rainbowsix/Brasileir%C3%A3o/2019/Regular_Season'; //! Separar ano
 
 const pathToNames = '.grouptableslot > .team-template-team-standard > .team-template-text > a';
@@ -30,7 +31,7 @@ const getMatchDates = async (url, path) => {
     const dates = [];
     const aux = ($(path, html).length);
     for (let i = 0; i < aux; i++) {
-      dates.push($(path, html)[i].children[0].data.trim())
+      dates.push(moment($(path, html)[i].children[0].data.trim(), 'MMMM DD, YYYY'));
     }
     return dates;
   }
@@ -70,13 +71,37 @@ const getScores = async (url, path1, path2) => {
   }
 }
 
+const getRounds = async () => {
+  let dates = await getMatchDates(url, pathToDates);
+  let matches = await getMatches(url, pathToMatches);
+  let scores = await getScores(url, pathToScores1, pathToScores2);
+
+  // for (let i = 0; i < 1/*(dates.length / 2)*/; i++) {
+  //   var myJSON = {
+  //     "match": {
+  //       "date": dates[i],
+  //       "team": matches[i],
+  //       "score": scores[i],
+  //       "team": matches[i++],
+  //       "score": scores[i++],
+  //     }
+  //   }
+  // }
+  // console.log(myJSON);
+  // var myString = JSON.stringify(myJSON);
+  // console.log(myString);
+
+}
+
 const main = async () => {
   // let teams = await getTeams(url, pathToNames);
   // let dates = await getMatchDates(url, pathToDates);
+  // console.log(dates);
   // let matches = await getMatches(url, pathToMatches);
-  let scores = await getScores(url, pathToScores1, pathToScores2);
-  console.log(scores);
-
+  // console.log(matches);
+  // let scores = await getScores(url, pathToScores1, pathToScores2);
+  // getRounds();
+  // parseDate();
 }
 
 main();
