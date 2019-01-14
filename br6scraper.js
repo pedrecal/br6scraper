@@ -78,7 +78,7 @@ const getRounds = async () => {
   let i = 0;
   let j = 0;
   for (; j < matches.length; j++) {
-    if (i !== 0) {
+    if (j !== 0) {
       (j % 4 ? i : i++);
     }
 
