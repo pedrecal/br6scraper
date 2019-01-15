@@ -96,4 +96,4 @@ const getRounds = async () => {
   return rounds;
 };
 
-export default { getRounds };
+module.exports.getRounds = getRounds;
