@@ -79,7 +79,7 @@ const getRounds = async () => {
   let j = 0;
   for (; j < matches.length; j++) {
     if (j !== 0) {
-      (j % 4 ? i : i++);
+      (j % 4 ? i : i += 1);
     }
 
     const round = {
@@ -93,20 +93,7 @@ const getRounds = async () => {
     };
     rounds.push(round);
   }
-  console.log(rounds);
-  // console.log(rounds.length);
-  // var myString = JSON.stringify(myJSON);
-  // console.log(myString);
+  return rounds;
 };
 
-const main = async () => {
-  // let teams = await getTeams(url, pathToNames);
-  // let dates = await getMatchDates(url, pathToDates);
-  // console.log(dates);
-  // let matches = await getMatches(url, pathToMatches);
-  // console.log(matches);
-  // let scores = await getScores(url, pathToScores1, pathToScores2);
-  getRounds();
-};
-
-main();
+export default { getRounds };
